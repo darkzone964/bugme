@@ -50,6 +50,7 @@
 
   <script>
     const STEPS = [
+      // Dorking
       {
         section: "البحث عن معلومات حساسة (Dorking)",
         id: "dorking",
@@ -57,32 +58,73 @@
           {
             title: "Dorking",
             level: "أساسي",
-            body: "الدوركنغ (Dorking) هو استخدام متقدم لمحركات البحث مثل Google للعثور على معلومات حساسة أو صفحات غير مؤمنة يمكن أن تكشف عن ثغرات أمنية. من خلال صياغة استعلامات مخصصة (Dorks) يمكن اكتشاف ملفات مكشوفة، صفحات تسجيل دخول، قواعد بيانات، أو تكوينات خاطئة. هذه الخطوة تعتبر أساسية في الفحص لأنها تساعدك على جمع بيانات قيّمة حول الهدف قبل أي اختبار عملي.",
+            body: "الدوركنغ هو استخدام متقدم لمحركات البحث للعثور على معلومات حساسة أو صفحات غير مؤمنة يمكن أن تكشف عن ثغرات.",
             commands: [
               {label: "dorks.xen00rw.me", cmd: "https://dorks.xen00rw.me/"},
               {label: "Deep Dork Web", cmd: "https://guilherme-moraiss.github.io/Deep-Dork-Web/"},
               {label: "Google Dorks Collection", cmd: "https://taksec.github.io/google-dorks-bug-bounty/"},
               {label: "DorkMe", cmd: "https://darkzone964.github.io/dorkme/dorkme.html"}
             ],
-            note: "بالتوفيق في فحصك"
+            note: "💡 كل رابط هنا يسهل عليك الوصول لمجموعة جاهزة من Dorks لتسريع عملية البحث وكشف معلومات حساسة."
           }
         ]
       },
+
+      // Subdomain Enumeration
       {
         section: "استخراج النطاقات الفرعية (Subdomain Enumeration)",
         id: "subdomain",
         items: [
           {
-            title: "Subfinder",
+            title: "Subfinder أساسي",
             level: "أساسي",
-            body: "استخراج النطاقات الفرعية (Subdomain Enumeration) يساعدك على العثور على الخدمات الفرعية المرتبطة بالموقع المستهدف. بعض هذه النطاقات قد يحتوي على ثغرات أو بيانات حساسة، لذلك تعتبر خطوة مهمة جداً.",
+            body: "يستخدم Subfinder لاستخراج النطاقات الفرعية من الدومين المستهدف بشكل شامل.",
             commands: [
-              {label: "subfinder", cmd: "subfinder -d example.com -all -recursive -timeout 20 -o subdomains.txt", link: "https://github.com/projectdiscovery/subfinder"}
+              {label: "subfinder - استخراج النطاقات", cmd: "subfinder -d example.com -all -recursive -timeout 20 -o subdomains.txt", link: "https://github.com/projectdiscovery/subfinder"}
             ],
-            note: "🔎 شرح البارامترات:\n- -d example.com → تحدد الدومين الأساسي.\n- -all → يستخدم كل المصادر المدعومة + الـ API keys المضافة.\n- -recursive → يفحص النطاقات الفرعية المكتشفة أيضاً (sub-subdomains).\n- -timeout 20 → يرفع وقت الانتظار حتى ما يفوت أي استجابة بطيئة.\n- -o subdomains.txt → يحفظ النتائج في ملف."
+            note: "🔎 شرح البارامترات:\n- -d example.com → الدومين الأساسي\n- -all → استخدام كل المصادر + API keys\n- -recursive → فحص Sub-subdomains\n- -timeout 20 → وقت الانتظار\n- -o subdomains.txt → حفظ النتائج"
+          },
+          {
+            title: "Subfinder من ملف",
+            level: "أساسي",
+            body: "قراءة الدومينات من ملف مسبق وتجهيزها للفحص.",
+            commands: [
+              {label: "subfinder -dL subs.txt", cmd: "subfinder -dL subs.txt -all -recursive -timeout 20 -o subdomains.txt", link: "https://github.com/projectdiscovery/subfinder"}
+            ],
+            note: "📂 يستخدم هذا الأمر لتسريع الفحص عند التعامل مع قائمة كبيرة من الدومينات."
+          },
+          {
+            title: "Active Subdomain Discovery (PureDNS)",
+            level: "متقدم",
+            body: "اكتشاف النطاقات الفرعية النشطة باستخدام brute force والتحقق عبر DNS.",
+            commands: [
+              {label: "puredns", cmd: "puredns bruteforce wordlist.txt example.com -r resolvers.txt -w brute_subs.txt", link: "https://github.com/d3mondev/puredns.git"},
+              {label: "resolvers list", cmd: "https://github.com/janmasarik/resolvers.git", link: "https://github.com/janmasarik/resolvers.git"}
+            ],
+            note: "🔎 يتيح اكتشاف نطاقات لم تظهر عبر Subfinder العادي، باستخدام قوائم كلمات وخوادم DNS."
+          },
+          {
+            title: "Virtual Host Discovery (FFUF)",
+            level: "متقدم",
+            body: "اكتشاف Virtual Hosts عبر تغيير Host header لكل كلمة في القائمة.",
+            commands: [
+              {label: "ffuf - فحص Host headers", cmd: 'ffuf -u http://www.exampel.com -H "Host: FUZZ.example.com" -w vhosts.txt -mc 200 -o vhost_results.txt'}
+            ],
+            note: "🔎 يساعد على كشف نطاقات فرعية تعمل على خادم معين قد تحتوي على خدمات أو بيانات حساسة."
+          },
+          {
+            title: "Subdomain Mutation (Altdns)",
+            level: "متقدم",
+            body: "توليد نسخ معدلة من النطاقات المكتشفة لإيجاد نطاقات إضافية.",
+            commands: [
+              {label: "altdns - Mutation", cmd: 'echo "dev.example.com" | altdns -o mutated.txt -w /usr/share/seclists/Discovery/DNS/words.txt', link: "https://github.com/infosec-au/altdns"}
+            ],
+            note: "🔎 اكتشاف نطاقات إضافية لم تُكتشف مسبقاً باستخدام permutations وmutations."
           }
         ]
       },
+
+      // Active Domains
       {
         section: "النطاقات النشطة (Active Domains)",
         id: "active-domains",
@@ -98,7 +140,7 @@
           {
             title: "Alive with Ports",
             level: "متقدم",
-            body: "يتحقق من النطاقات الحية على المنافذ الشائعة (HTTP/HTTPS ومنافذ بديلة) ويخرجها في ملف منفصل. هذا يسمح باكتشاف الخدمات على منافذ غير قياسية.",
+            body: "يتحقق من النطاقات الحية على المنافذ الشائعة (HTTP/HTTPS ومنافذ بديلة) ويخرجها في ملف منفصل.",
             commands: [
               {label: "فحص منافذ", cmd: "cat allsubdomain.txt | httpx -ports 80,443,8080,8443 -o alive_ports.txt", link: "https://github.com/projectdiscovery/httpx"}
             ]
@@ -137,6 +179,23 @@
               {label: "Eyewitness", cmd: "eyewitness -f alive.txt -d eyewitness_report", link: "https://github.com/FortyNorthSecurity/EyeWitness"}
             ],
             note: "يمكن اختيار أي أداة أو جمع النتائج من جميعها للحصول على تغطية شاملة لكل النطاقات النشطة."
+          }
+        ]
+      },
+
+      // Web Content
+      {
+        section: "اكتشاف محتوى الويب (Web Content Discover)",
+        id: "web-content",
+        items: [
+          {
+            title: "Waybackurls",
+            level: "أساسي",
+            body: "باستخدام قائمة جميع النطاقات الفرعية المكتشفة، يمكن استخراج جميع الروابط والملفات القديمة والموثوقة التي تم أرشفتها سابقاً على Wayback Machine.",
+            commands: [
+              {label: "waybackurls", cmd: "cat allsubdomain.txt | waybackurls > wayback_links.txt", link: "https://github.com/tomnomnom/waybackurls"}
+            ],
+            note: "يمكن لاحقاً استخدام هذه الروابط لاختبارات إضافية مثل فحص محتوى قديم أو نقاط إدخال محتملة."
           }
         ]
       }
