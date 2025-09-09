@@ -292,11 +292,11 @@
     </div>
 
     <div class="card">
-      <pre class="ltr">echo "dev.example.com" | altdns -o mutated.txt -w /usr/share/seclists/Discovery/DNS/words.txt</pre>
+      <pre class="ltr">altdns -i subdomains.txt -o mutated.txt -w /usr/share/seclists/Discovery/DNS/subdomains-top1million-110000.txt</pre>
       <button class="copyBtn" onclick="copyText(this)">نسخ</button>
     </div>
     <div class="descBox">
-      <b>echo "dev.example.com"</b>: يدخل الدومين إلى ألتدنز.<br>
+      <b>-i subs.txt </b>: مجموعة من النطاقات الاساسية وليست الفرعية.<br>
       <b>-o mutated.txt</b>: اسم الملف الناتج بالدومينات المُحورة.<br>
       <b>-w /usr/share/seclists/Discovery/DNS/words.txt</b>: قائمة الكلمات المستخدمة للطفرات.
     </div>
