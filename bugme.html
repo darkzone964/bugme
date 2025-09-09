@@ -320,27 +320,27 @@
     <div class="subTitle">▎ أوامر الفحص الأساسية</div>
 
     <div class="card">
-      <pre class="ltr">cat final_subs.txt | httpx -silent -o alive.txt</pre>
+      <pre class="ltr">cat allsubdomian.txt | httpx-toolkit -silent -o alive.txt</pre>
       <button class="copyBtn" onclick="copyText(this)">نسخ</button>
     </div>
     <div class="descBox">
-      <b>cat final_subs.txt</b>: يدخل قائمة الدومينات التي جمعناها سابقاً.<br>
+      <b>cat allsubdomian.txt</b>: يدخل قائمة الدومينات التي جمعناها سابقاً.<br>
       <b>-silent</b>: يُخفي رسائل التقدم ويُظهر فقط الروابط الحية.<br>
       <b>-o alive.txt</b>: يحفظ الروابط النشطة في ملف نصي جاهز للفحص أو الاختبار اللاحق.
     </div>
 
     <div class="card">
-      <pre class="ltr">httpx -l final_subs.txt -ports 80,443,8080,8443 -o alive_ports.txt</pre>
+      <pre class="ltr">httpx-toolkit -l allsubdomin.txt -ports 80,443,8080,8443 -o alive_ports.txt</pre>
       <button class="copyBtn" onclick="copyText(this)">نسخ</button>
     </div>
     <div class="descBox">
-      <b>-l final_subs.txt</b>: قائمة الدومينات من ملف.<br>
+      <b>-l allsubdomian.txt</b>: قائمة الدومينات من ملف.<br>
       <b>-ports 80,443,8080,8443</b>: يختبر فقط المنافذ الشائعة (HTTP، HTTPS، وغيرها).<br>
       <b>-o alive_ports.txt</b>: يحفظ الروابط النشطة مع رقم المنفذ في ملف منفصل.
     </div>
 
     <div class="card">
-      <pre class="ltr">cat allsubdomain.txt | httpx -probe -o alive_probe.txt</pre>
+      <pre class="ltr">cat allsubdomain.txt | httpx-toolkit -probe -o alive_probe.txt</pre>
       <button class="copyBtn" onclick="copyText(this)">نسخ</button>
     </div>
     <div class="descBox">
@@ -350,7 +350,7 @@
     </div>
 
     <div class="card">
-      <pre class="ltr">cat allsubdomain.txt | httpx -ip -cdn -o alive_ip.txt</pre>
+      <pre class="ltr">cat allsubdomain.txt | httpx-toolkit -ip -cdn -o alive_ip.txt</pre>
       <button class="copyBtn" onclick="copyText(this)">نسخ</button>
     </div>
     <div class="descBox">
