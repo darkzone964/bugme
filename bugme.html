@@ -1,296 +1,472 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>مدونة خطوات فحص المواقع — جو سيبراني</title>
-  <meta name="description" content="مدونة عربية بلغة HTML/CSS/JS بخلفية سيبرانية، تعرض خطوات فحص المواقع مع اختيار القسم المطلوب." />
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <title>bugme by dark</title>
   <style>
+    :root{
+      --neon:#00f3ff;
+      --purple:#b400ff;
+      --bg:#0d0d0d;
+      --grid:rgba(0,243,255,.08);
+      --box:#111;
+    }
+    *{margin:0;padding:0;box-sizing:border-box;}
     body{
-      margin:0; font-family:'Cairo',sans-serif; color:#e0f2ff;
-      background:radial-gradient(circle at top left,#0f2027,#203a43,#2c5364);
       min-height:100vh;
+      background:var(--bg);
+      background-image:
+        linear-gradient(var(--grid) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+      background-size:40px 40px;
+      font-family:'Courier New',monospace;
+      color:#fff;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      padding:2rem 1rem;
     }
-    header{padding:16px; text-align:center; background:#0a141d; border-bottom:2px solid #1f2f40;}
-    header h1{margin:0; font-size:24px; color:#4dd0e1; text-shadow:0 0 10px #00e5ff;}
-    .selector{display:flex; justify-content:center; gap:12px; flex-wrap:wrap; margin:20px auto;}
-    .selector button{
-      background:#102331; border:1px solid #26506a; color:#aeefff; padding:10px 18px; border-radius:10px;
-      cursor:pointer; font-size:15px; transition:0.2s; box-shadow:0 0 8px rgba(0,229,255,.3);
+    h1{
+      font-size:4rem;
+      color:var(--neon);
+      text-shadow:
+        0 0 5px var(--neon),
+        0 0 10px var(--neon),
+        0 0 20px var(--neon);
+      animation:pulse 2s infinite alternate;
+      margin-bottom:2rem;
     }
-    .selector button:hover{background:#16394f; box-shadow:0 0 15px rgba(0,229,255,.6);}
-    .selector button.active{background:#00e5ff; color:#0a141d; font-weight:bold;}
-    main{max-width:1000px; margin:0 auto; padding:20px;}
-    .section{display:none; background:#0e1b26; border:1px solid #1f2f40; border-radius:14px; padding:16px; margin-bottom:16px; box-shadow:0 0 15px rgba(0,229,255,.2);}
-    .section h2{margin-top:0; color:#00e5ff;}
-    .card{background:#142531; border:1px solid #2a4459; border-radius:10px; padding:12px; margin-bottom:12px;}
-    .card h3{margin:0 0 6px; color:#4dd0e1;}
-    .badge{display:inline-block; padding:4px 10px; border-radius:8px; font-size:12px; margin-bottom:6px;}
-    .badge.primary{background:#1c2e3d; color:#aeefff;}
-    .badge.success{background:#2e4b36; color:#bdfdff;}
-    .badge.info{background:#3b3f6b; color:#c6f0ff;}
-    .code{position:relative; background:#0a141d; border:1px solid #223a4e; border-radius:10px; padding:8px; margin-top:8px;}
-    pre{margin:0; font-family:monospace; font-size:13px; color:#bdfdff; white-space:pre-wrap;}
-    .copy-btn{position:absolute; top:6px; right:6px; background:#16394f; border:1px solid #2a556f; color:#aeefff; padding:4px 10px; border-radius:8px; cursor:pointer; font-size:12px;}
-    .copy-btn:hover{background:#00e5ff; color:#0a141d;}
-    .note{margin-top:8px; background:#142531; border-left:3px solid #00e5ff; padding:8px; border-radius:6px; font-size:13px; white-space:pre-line;}
-    .toast{position:fixed; bottom:20px; right:20px; background:#0a141d; color:#aeefff; padding:10px 16px; border-radius:10px; border:1px solid #00e5ff; opacity:0; transform:translateY(10px); transition:.3s;}
-    .toast.show{opacity:1; transform:translateY(0)}
+    @keyframes pulse{
+      from{opacity:.8;}to{opacity:1;}
+    }
+    .sections-wrapper{
+      display:flex;
+      gap:2rem;
+      width:100%;
+      max-width:1400px;
+      justify-content:center;
+      flex-wrap:wrap;
+    }
+    section{
+      flex:1 1 320px;
+      max-width:400px;
+    }
+    h2{
+      color:var(--neon);
+      margin-bottom:.75rem;
+      font-size:1.4rem;
+      cursor:pointer;
+      user-select:none;
+      display:flex;
+      align-items:center;
+      gap:.5rem;
+    }
+    h2::before{
+      content:'▶';
+      transition:transform .2s;
+    }
+    h2.active::before{
+      transform:rotate(90deg);
+    }
+    .content{
+      max-height:0;
+      overflow:hidden;
+      transition:max-height .3s ease;
+    }
+    .content.show{
+      max-height:600px;
+    }
+    p{margin-bottom:1rem;line-height:1.5;font-size:.95rem;}
+    .link-box{
+      background:var(--box);
+      border-left:3px solid var(--neon);
+      padding:.75rem;
+      margin-bottom:.75rem;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      flex-wrap:wrap;
+      gap:.5rem;
+    }
+    pre{
+      margin:0;
+      overflow-x:auto;
+      white-space:pre-wrap;
+      word-break:break-all;
+      font-size:.85rem;
+    }
+    button.copy-btn{
+      padding:.3rem .7rem;
+      border:none;
+      border-radius:4px;
+      background:var(--purple);
+      color:#000;
+      font-weight:bold;
+      cursor:pointer;
+      box-shadow:0 0 8px var(--purple);
+      transition:.2s;
+      flex-shrink:0;
+      font-size:.8rem;
+    }
+    button.copy-btn:hover{filter:brightness(1.2);}
+    .highlight{
+      color:var(--neon);
+      font-weight:bold;
+      text-shadow:0 0 5px var(--neon);
+    }
+    .tool-link{
+      color:var(--purple);
+      text-decoration:none;
+      font-weight:bold;
+      text-shadow:0 0 5px var(--purple);
+    }
+    .tool-link:hover{
+      text-decoration:underline;
+    }
+    pre .ar{
+      color:var(--neon);
+      font-weight:bold;
+      text-shadow:0 0 5px var(--neon);
+    }
+    .cmd-order{
+      direction:ltr;
+      display:block;
+      text-align:left;
+      unicode-bidi:plaintext;
+    }
+    /* مربع النزول/الصعود */
+    .collapse-box{
+      border:1px solid var(--neon);
+      border-radius:6px;
+      overflow:hidden;
+      margin-bottom:1rem;
+      box-shadow:0 0 6px var(--neon);
+    }
+    .collapse-header{
+      background:var(--box);
+      padding:.5rem .75rem;
+      cursor:pointer;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      user-select:none;
+    }
+    .collapse-header span{
+      color:var(--neon);
+      font-weight:bold;
+    }
+    .collapse-header::after{
+      content:'▼';
+      color:var(--neon);
+      transition:transform .3s;
+    }
+    .collapse-header.active::after{
+      transform:rotate(180deg);
+    }
+    /* الجسم مع scroll داخلي */
+    .collapse-body{
+        max-height:0;
+        overflow:hidden;
+        background:var(--bg);
+        transition:max-height .3s ease;
+    }
+    .collapse-body.show{
+        max-height:250px;
+        overflow-y:auto;
+        padding:.75rem;
+    }
+    /* شريط تمرير ملون */
+    .collapse-body::-webkit-scrollbar{
+      width:6px;
+    }
+    .collapse-body::-webkit-scrollbar-track{
+      background:var(--box);
+    }
+    .collapse-body::-webkit-scrollbar-thumb{
+      background:var(--neon);
+      border-radius:3px;
+    }
   </style>
 </head>
 <body>
-  <header>
-    <h1>🛡️ مدونة خطوات فحص المواقع — دارك لديكم</h1>
-  </header>
+  <h1>bugme by dark</h1>
 
-  <div class="selector" id="sectionSelector"></div>
-  <main id="content"></main>
-  <div class="toast" id="toast">تم نسخ الأمر ✅</div>
+  <div class="sections-wrapper">
+
+    <!-- قسم dorking -->
+    <section id="dorking">
+      <h2 onclick="toggleSection(this)">dorking</h2>
+      <div class="content">
+        <p>
+          الدوركنج يكشف المعلومات المخفية والنقاط الضعيفة عن طريق بناء عمليات بحث دقيقة؛
+          مما يقلّص مساحة الهجوم ويزيد من فرص العثور على الثغرات بسرعة.
+        </p>
+
+        <div class="link-box">
+          <pre>https://dorks.xen00rw.me/</pre>
+          <button class="copy-btn" onclick="copyText(this)">نسخ</button>
+        </div>
+
+        <div class="link-box">
+          <pre>https://guilherme-moraiss.github.io/Deep-Dork-Web/</pre>
+          <button class="copy-btn" onclick="copyText(this)">نسخ</button>
+        </div>
+
+        <div class="link-box">
+          <pre>https://taksec.github.io/google-dorks-bug-bounty/</pre>
+          <button class="copy-btn" onclick="copyText(this)">نسخ</button>
+        </div>
+
+        <div class="link-box">
+          <pre>https://darkzone964.github.io/dorkme/dorkme.html</pre>
+          <button class="copy-btn" onclick="copyText(this)">نسخ</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- قسم subdomain enum -->
+    <section id="subdomain-enum">
+      <h2 onclick="toggleSection(this)">subdomain enum</h2>
+      <div class="content">
+
+        <!-- مربع passive -->
+        <div class="collapse-box">
+          <div class="collapse-header" onclick="toggleCollapse(this)">
+            <span>passive subdomain</span>
+          </div>
+          <div class="collapse-body">
+            <!-- وصف الأداة -->
+            <p style="font-size:.85rem;margin-bottom:.8rem;">
+              <span class="highlight">ما هي الأداة؟</span><br>
+              <b>subfinder</b> - أداة سريعة مفتوحة المصدر تستقصي مصادر عامة ومجموعات بيانات لاستخراج أسماء النطاقات الفرعية دون إرسال حزم إلى الهدف (سلبي بالكامل).<br>
+              <span class="highlight">لماذا أستخدمها؟</span><br>
+              لا تُحدث ضوضاء، تعطي نتائج فورية، وتدعم أكثر من 25 مصدراً مثل VirusTotal، Crt.sh، Cloudflare وغيرها.
+            </p>
+
+            <div class="link-box">
+              <pre class="cmd-order">subfinder -d example.com -all -recursive -timeout 20 -o subdomains.txt</pre>
+              <button class="copy-btn" onclick="copyText(this)">نسخ</button>
+            </div>
+            <ul style="margin-right:1.2rem;font-size:.85rem;line-height:1.6;">
+              <li><b>-d example.com</b>: النطاق المستهدف.</li>
+              <li><b>-all</b>: استخدام جميع المصادر المتاحة.</li>
+              <li><b>-recursive</b>: البحث بشكل تكراري لاستخراج دومينات أعمق.</li>
+              <li><b>-timeout 20</b>: مهلة 20 ثانية لكل مصدر.</li>
+              <li><b>-o subdomains.txt</b>: حفظ النتائج في الملف المحدد.</li>
+            </ul>
+
+            <!-- الأمر الثاني للـ passive -->
+            <div class="link-box">
+              <pre class="cmd-order">subfinder -dL <span class="ar">subs.txt</span> -all -recursive -timeout 20 -o subdomains.txt</pre>
+              <button class="copy-btn" onclick="copyText(this)">نسخ</button>
+            </div>
+            <ul style="margin-right:1.2rem;font-size:.85rem;line-height:1.6;">
+              <li><b>-dL <span class="ar">subs.txt</span></b>: قائمة من النطاقات (ملف نصي).</li>
+              <li><b>-all</b>: استخدام جميع المصادر المتاحة.</li>
+              <li><b>-recursive</b>: البحث بشكل تكراري لاستخراج دومينات أعمق.</li>
+              <li><b>-timeout 20</b>: مهلة 20 ثانية لكل مصدر.</li>
+              <li><b>-o subdomains.txt</b>: حفظ النتائج في الملف المحدد.</li>
+            </ul>
+            <p>
+              تحميل الأدوات:<br>
+              <a class="tool-link" href="https://github.com/projectdiscovery/subfinder" target="_blank" rel="noopener">subfinder</a>
+            </p>
+          </div>
+        </div>
+
+        <!-- مربع active -->
+        <div class="collapse-box">
+          <div class="collapse-header" onclick="toggleCollapse(this)">
+            <span>active subdomain</span>
+          </div>
+          <div class="collapse-body">
+            <p style="font-size:.85rem;margin-bottom:1rem;">
+              نحتاجها حين تفشل الطرق السلبية أو عند الرغبة في اكتشاف دومينات غير منشورة أبداً؛
+              إذ ترسل استعلامات DNS مباشرة إلى الخادم فتكشف ما لا يظهر في المصادر العامة.
+            </p>
+
+            <!-- puredns -->
+            <div class="link-box">
+              <pre class="cmd-order">puredns bruteforce wordlist.txt example.com -r resolvers.txt -w brute_subs.txt</pre>
+              <button class="copy-btn" onclick="copyText(this)">نسخ</button>
+            </div>
+            <!-- وصف الأداة -->
+            <p style="font-size:.85rem;margin-bottom:.8rem;">
+              <span class="highlight">ما هي الأداة؟</span><br>
+              <b>puredns</b> - أداة فرعية سريعة تعتمد على DNS مباشرة لاختبار ملايين الاستعلامات في الثانية.<br>
+              <span class="highlight">لماذا أستخدمها؟</span><br>
+              تكشف دومينات غير منشورة، تدعم وضع Bruteforce ووضع Resolver سريع، وتُنقي النتائج تلقائياً.
+            </p>
+            <ul style="margin-right:1.2rem;font-size:.85rem;line-height:1.6;">
+              <li><b>bruteforce</b>: وضع التخمين القاموسي.</li>
+              <li><b>wordlist.txt</b>: ملف القاموس (كلمات السب-دومين).</li>
+              <li><b>example.com</b>: النطاق الأساسي المستهدف.</li>
+              <li><b>-r resolvers.txt</b>: ملف محلِّلات DNS (للدقة والسرعة).</li>
+              <li><b>-w brute_subs.txt</b>: اسم الملف الناتج الذي ستُحفظ فيه النطاقات الصالحة.</li>
+            </ul>
+
+            <!-- ffuf vhost -->
+            <div class="link-box">
+              <pre class="cmd-order">ffuf -u http://www.example.com -H "Host: FUZZ.example.com" -w vhosts.txt -mc 200 -o vhost_results.txt</pre>
+              <button class="copy-btn" onclick="copyText(this)">نسخ</button>
+            </div>
+            <!-- وصف الأداة -->
+            <p style="font-size:.85rem;margin-bottom:.8rem;">
+              <span class="highlight">ما هي الأداة؟</span><br>
+              <b>ffuf</b> - أداة تخمين سريعة تعتمد على الـ HTTP لاكتشاف الـ Virtual Hosts أو المسارات أو الملفات.<br>
+              <span class="highlight">لماذا أستخدمها؟</span><br>
+              تُظهر مواقع فرعية تعمل على نفس IP لكنها تُستدعى عبر رأس Host مختلف، مما يكشف خدمات مخفية.
+            </p>
+            <ul style="margin-right:1.2rem;font-size:.85rem;line-height:1.6;">
+              <li><b>-u http://www.example.com</b>: الرابط الأساسي الذي سيتم اختباره.</li>
+              <li><b>-H "Host: FUZZ.example.com"</b>: تعديل رأس Host ليكون FUZZ.example.com.</li>
+              <li><b>-w vhosts.txt</b>: قائمة كلمات الـ vhost (ستُستبدل بدل FUZZ).</li>
+              <li><b>-mc 200</b>: إظهار النتائج التي ترجع حالة 200 فقط.</li>
+              <li><b>-o vhost_results.txt</b>: حفظ النتائج في ملف نصي.</li>
+            </ul>
+
+            <!-- altdns mutation -->
+            <div class="link-box">
+              <pre class="cmd-order">echo "dev.example.com" | altdns -o mutated.txt -w /usr/share/seclists/Discovery/DNS/words.txt</pre>
+              <button class="copy-btn" onclick="copyText(this)">نسخ</button>
+            </div>
+            <!-- وصف الأداة -->
+            <p style="font-size:.85rem;margin-bottom:.8rem;">
+              <span class="highlight">ما هي الأداة؟</span><br>
+              <b>altdns</b> - أداة تُحدث طفرات (mutations) على أسماء النطاقات باستخدام كلمات شائعة.<br>
+              <span class="highlight">لماذا أستخدمها؟</span><br>
+              تولِّد دومينات جديدة مثل (dev-api, api-dev, dev-backup) قد تكون غير مدرجة في أي مصدر.
+            </p>
+            <ul style="margin-right:1.2rem;font-size:.85rem;line-height:1.6;">
+              <li><b>echo "dev.example.com"</b>: يدخل الدومين إلى ألتدنز.</li>
+              <li><b>-o mutated.txt</b>: اسم الملف الناتج بالدومينات المُحورة.</li>
+              <li><b>-w /usr/share/seclists/Discovery/DNS/words.txt</b>: قائمة الكلمات المستخدمة للطفرات.</li>
+            </ul>
+
+            <!-- جمع النتائج -->
+            <p style="font-size:.85rem;margin-bottom:.6rem;">
+              <span class="highlight">جمع كل النتائج في ملف واحد نهائي:</span>
+            </p>
+            <!-- الأمر الأول -->
+            <div class="link-box">
+              <pre class="cmd-order">cat *.txt | anew | tee allsubomian.txt</pre>
+              <button class="copy-btn" onclick="copyText(this)">نسخ</button>
+            </div>
+            <ul style="margin-right:1.2rem;font-size:.85rem;line-height:1.6;margin-bottom:.6rem;">
+              <li><b>cat *.txt</b>: يقرأ جميع ملفات النصوص (نتائج الأدوات السابقة).</li>
+              <li><b>anew</b>: يضيف فقط الأسطر الجديدة (غير المكررة) إلى الملف النهائي.</li>
+              <li><b>tee allsubomian.txt</b>: يحفظ المخرج في الملف ويطبعه أمامك في نفس الوقت.</li>
+            </ul>
+            <!-- الأمر الثاني -->
+            <div class="link-box">
+              <pre class="cmd-order">cat *.txt | sort -u | tee allsubdomian.txt</pre>
+              <button class="copy-btn" onclick="copyText(this)">نسخ</button>
+            </div>
+            <ul style="margin-right:1.2rem;font-size:.85rem;line-height:1.6;">
+              <li><b>cat *.txt</b>: يقرأ جميع ملفات النصوص.</li>
+              <li><b>sort -u</b>: يُرتّب ويزيل التكرارات.</li>
+              <li><b>tee allsubdomian.txt</b>: يحفظ النتيجة النهائية ويطبعها.</li>
+            </ul>
+
+            <!-- روابط تحميل الأدوات -->
+            <p>
+              تحميل الأدوات:<br>
+              <a class="tool-link" href="https://github.com/d3mondev/puredns" target="_blank" rel="noopener">puredns</a> |
+              <a class="tool-link" href="https://github.com/janmasarik/resolvers" target="_blank" rel="noopener">resolvers</a> |
+              <a class="tool-link" href="https://github.com/ffuf/ffuf/releases" target="_blank" rel="noopener">ffuf</a> |
+              <a class="tool-link" href="https://github.com/infosec-au/altdns" target="_blank" rel="noopener">altdns</a> |
+              قاموس vhosts جاهز: <a class="tool-link" href="https://github.com/danielmiessler/SecLists/tree/master/Discovery/DNS" target="_blank" rel="noopener">SecLists</a>
+            </p>
+
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- قسم check active (جديد كامل) -->
+    <section id="check-active">
+      <h2 onclick="toggleSection(this)">check active</h2>
+      <div class="content">
+        <!-- وصف العملية -->
+        <p style="font-size:.95rem;margin-bottom:.8rem;">
+          بعد جمع قائمة طويلة من النطاقات الفرعية، نحتاج إلى معرفة أي منها <span class="highlight">يعمل فعلياً</span> ويرد على طلبات HTTP/HTTPS؛
+          هذه الخطوة توفر الوقت والجهد وتُركز الاختبار على الأهداف الحية فقط.
+        </p>
+
+        <!-- وصف الأداة -->
+        <p style="font-size:.85rem;margin-bottom:.8rem;">
+          <span class="highlight">ما هي الأداة؟</span><br>
+          <b>httpx</b> - أداة سريعة مخصصة لاكتشاف الخدمات الحيّة عبر HTTP/HTTPS مع دعم التوجيهات، التحقق من الشهادات، والتصفية حسب الحالة.<br>
+          <span class="highlight">لماذا أستخدمها؟</span><br>
+          تُظهر فقط الروابط التي تستجيب بشكل فعلي، تدعم العمل على ملفات ضخمة، وتُخرج النتائج جاهزة للخطوة التالية.
+        </p>
+
+        <!-- الأمر الأساسي -->
+        <div class="link-box">
+          <pre class="cmd-order">cat allsubdomain.txt | httpx -silent -o alive.txt</pre>
+          <button class="copy-btn" onclick="copyText(this)">نسخ</button>
+        </div>
+        <ul style="margin-right:1.2rem;font-size:.85rem;line-height:1.6;">
+          <li><b>cat allsubdomain.txt</b>: يدخل قائمة الدومينات التي جمعناها سابقاً.</li>
+          <li><b>-silent</b>: يُخفي رسائل التقدم ويُظهر فقط الروابط الحية.</li>
+          <li><b>-o alive.txt</b>: يحفظ الروابط النشطة في ملف نصي جاهز للفحص أو الاختبار اللاحق.</li>
+        </ul>
+
+        <!-- الأمر الثاني - فحص منافذ محددة -->
+        <div class="link-box">
+          <pre class="cmd-order">cat allsubdomain.txt | httpx -ports 80,443,8080,8443 -o alive_ports.txt</pre>
+          <button class="copy-btn" onclick="copyText(this)">نسخ</button>
+        </div>
+        <!-- وصف الأمر -->
+        <p style="font-size:.85rem;margin-bottom:.8rem;">
+          <span class="highlight">لماذا أستخدم هذا الأمر؟</span><br>
+          بدل فحص المنفذ الافتراضي (80/443) فقط، أختبر منافذ شائعة تُستخدم غالباً في بيئات التطوير أو الإدارة مثل 8080 (Dev) و8443 (HTTPS-alt)؛
+          هذا يكشف خدمات مخفية قد تكون مفتوحة داخلياً أو في بيئات ستاجنج.
+        </p>
+        <ul style="margin-right:1.2rem;font-size:.85rem;line-height:1.6;">
+          <li><b>-ports 80,443,8080,8443</b>: يختبر فقط المنافذ الشائعة (HTTP، HTTPS، وغيرها).</li>
+          <li><b>-o alive_ports.txt</b>: يحفظ الروابط النشطة مع رقم المنفذ في ملف منفصل.</li>
+        </ul>
+
+        <!-- كرت قراءة مطولة مع scroll داخلي -->
+        <div style="max-height:120px; overflow-y:auto; background:var(--box); border-left:2px solid var(--neon); padding:.5rem .75rem; margin-top:.5rem; font-size:.8rem; line-height:1.5;">
+          <b>ملاحظة إضافية:</b><br>
+          يمكنك تمرير جميع ملفات النتائج إلى httpx دفعة واحدة:<br>
+          <code style="color:var(--neon);">cat *.txt | httpx -silent -o final_alive.txt</code><br>
+          أو استخدام وضع JSON لاحقاً:<br>
+          <code style="color:var(--neon);">httpx -l allsubdomain.txt -json -o alive.json</code><br>
+          ثم استخراج الحقول التي تحتاجها مثل العنوان، رقم المنفذ، أو شهادة TLS.
+        </div>
+
+        <!-- رابط التحميل -->
+        <p>
+          تحميل الأداة: <a class="tool-link" href="https://github.com/projectdiscovery/httpx" target="_blank" rel="noopener">httpx</a>
+        </p>
+
+      </div>
+    </section>
+
+  </div><!-- نهاية sections-wrapper -->
 
   <script>
-    const STEPS = [
-      // Dorking
-      {
-        section: "البحث عن معلومات حساسة (Dorking)",
-        id: "dorking",
-        items: [
-          {
-            title: "Dorking",
-            level: "أساسي",
-            body: "الدوركنغ هو استخدام متقدم لمحركات البحث للعثور على معلومات حساسة أو صفحات غير مؤمنة يمكن أن تكشف عن ثغرات.",
-            commands: [
-              {label: "dorks.xen00rw.me", cmd: "https://dorks.xen00rw.me/"},
-              {label: "Deep Dork Web", cmd: "https://guilherme-moraiss.github.io/Deep-Dork-Web/"},
-              {label: "Google Dorks Collection", cmd: "https://taksec.github.io/google-dorks-bug-bounty/"},
-              {label: "DorkMe", cmd: "https://darkzone964.github.io/dorkme/dorkme.html"}
-            ],
-            note: "💡 كل رابط هنا يسهل عليك الوصول لمجموعة جاهزة من Dorks لتسريع عملية البحث وكشف معلومات حساسة."
-          }
-        ]
-      },
-
-      // Subdomain Enumeration
-      {
-        section: "استخراج النطاقات الفرعية (Subdomain Enumeration)",
-        id: "subdomain",
-        items: [
-          {
-            title: "Subfinder أساسي",
-            level: "أساسي",
-            body: "يستخدم Subfinder لاستخراج النطاقات الفرعية من الدومين المستهدف بشكل شامل.",
-            commands: [
-              {label: "subfinder - استخراج النطاقات", cmd: "subfinder -d example.com -all -recursive -timeout 20 -o subdomains.txt", link: "https://github.com/projectdiscovery/subfinder"}
-            ],
-            note: "🔎 شرح البارامترات:\n- -d example.com → الدومين الأساسي\n- -all → استخدام كل المصادر + API keys\n- -recursive → فحص Sub-subdomains\n- -timeout 20 → وقت الانتظار\n- -o subdomains.txt → حفظ النتائج"
-          },
-          {
-            title: "Subfinder من ملف",
-            level: "أساسي",
-            body: "قراءة الدومينات من ملف مسبق وتجهيزها للفحص.",
-            commands: [
-              {label: "subfinder -dL subs.txt", cmd: "subfinder -dL subs.txt -all -recursive -timeout 20 -o subdomains.txt", link: "https://github.com/projectdiscovery/subfinder"}
-            ],
-            note: "📂 يستخدم هذا الأمر لتسريع الفحص عند التعامل مع قائمة كبيرة من الدومينات."
-          },
-          {
-            title: "Active Subdomain Discovery (PureDNS)",
-            level: "متقدم",
-            body: "اكتشاف النطاقات الفرعية النشطة باستخدام brute force والتحقق عبر DNS.",
-            commands: [
-              {label: "puredns", cmd: "puredns bruteforce wordlist.txt example.com -r resolvers.txt -w brute_subs.txt", link: "https://github.com/d3mondev/puredns.git"},
-              {label: "resolvers list", cmd: "https://github.com/janmasarik/resolvers.git", link: "https://github.com/janmasarik/resolvers.git"}
-            ],
-            note: "🔎 يتيح اكتشاف نطاقات لم تظهر عبر Subfinder العادي، باستخدام قوائم كلمات وخوادم DNS."
-          },
-          {
-            title: "Virtual Host Discovery (FFUF)",
-            level: "متقدم",
-            body: "اكتشاف Virtual Hosts عبر تغيير Host header لكل كلمة في القائمة.",
-            commands: [
-              {label: "ffuf - فحص Host headers", cmd: 'ffuf -u http://www.exampel.com -H "Host: FUZZ.example.com" -w vhosts.txt -mc 200 -o vhost_results.txt'}
-            ],
-            note: "🔎 يساعد على كشف نطاقات فرعية تعمل على خادم معين قد تحتوي على خدمات أو بيانات حساسة."
-          },
-          {
-            title: "Subdomain Mutation (Altdns)",
-            level: "متقدم",
-            body: "توليد نسخ معدلة من النطاقات المكتشفة لإيجاد نطاقات إضافية.",
-            commands: [
-              {label: "altdns - Mutation", cmd: 'echo "dev.example.com" | altdns -o mutated.txt -w /usr/share/seclists/Discovery/DNS/words.txt', link: "https://github.com/infosec-au/altdns"}
-            ],
-            note: "🔎 اكتشاف نطاقات إضافية لم تُكتشف مسبقاً باستخدام permutations وmutations."
-          }
-        ]
-      },
-
-      // Active Domains
-      {
-        section: "النطاقات النشطة (Active Domains)",
-        id: "active-domains",
-        items: [
-          {
-            title: "Alive List",
-            level: "متقدم",
-            body: "يتحقق هذا الأمر من النطاقات الفرعية التي تعمل فعلياً ويخرجها في ملف. مهم لفصل النطاقات الحية عن الميتة قبل أي فحص إضافي.",
-            commands: [
-              {label: "أمر HTTPX أساسي", cmd: "cat allsubdomain.txt | httpx -silent -o alive.txt", link: "https://github.com/projectdiscovery/httpx"}
-            ]
-          },
-          {
-            title: "Alive with Ports",
-            level: "متقدم",
-            body: "يتحقق من النطاقات الحية على المنافذ الشائعة (HTTP/HTTPS ومنافذ بديلة) ويخرجها في ملف منفصل.",
-            commands: [
-              {label: "فحص منافذ", cmd: "cat allsubdomain.txt | httpx -ports 80,443,8080,8443 -o alive_ports.txt", link: "https://github.com/projectdiscovery/httpx"}
-            ]
-          },
-          {
-            title: "Alive Probe",
-            level: "متقدم",
-            body: "يستخدم probe مباشر لكل نطاق للتحقق من نشاطه بدقة أكبر قبل أي تحليل إضافي.",
-            commands: [
-              {label: "استكشاف مباشر", cmd: "cat allsubdomain.txt | httpx -probe -o alive_probe.txt", link: "https://github.com/projectdiscovery/httpx"}
-            ]
-          },
-          {
-            title: "Alive Detailed",
-            level: "متقدم",
-            body: "يجمع معلومات إضافية لكل نطاق حي مثل كود الحالة HTTP وعنوان الصفحة، وهذا يساعد على فهم طبيعة الخدمة أو الصفحة المستضافة.",
-            commands: [
-              {label: "تفاصيل النطاقات", cmd: "cat allsubdomain.txt | httpx -sc -title -o alive_detailed.txt", link: "https://github.com/projectdiscovery/httpx"}
-            ]
-          },
-          {
-            title: "Alive IP & CDN",
-            level: "متقدم",
-            body: "يعطي عنوان IP لكل نطاق حي ويكشف إذا كان وراء CDN. هذا مهم لتحليل البنية التحتية ومعرفة عنوان السيرفر الحقيقي.",
-            commands: [
-              {label: "IP وCDN", cmd: "cat allsubdomain.txt | httpx -ip -cdn -o alive_ip.txt", link: "https://github.com/projectdiscovery/httpx"}
-            ]
-          },
-          {
-            title: "أخذ لقطات الشاشة",
-            level: "متقدم",
-            body: "بعد تحديد النطاقات النشطة، يمكن أخذ سكرينشوت لكل موقع باستخدام أدوات مختلفة مثل Aquatone وGowitness وEyewitness.",
-            commands: [
-              {label: "Aquatone", cmd: "cat alive.txt | aquatone -out screenshots", link: "https://github.com/michenriksen/aquatone"},
-              {label: "Gowitness", cmd: "gowitness file -f alive.txt -P screenshots/", link: "https://github.com/sensepost/gowitness"},
-              {label: "Eyewitness", cmd: "eyewitness -f alive.txt -d eyewitness_report", link: "https://github.com/FortyNorthSecurity/EyeWitness"}
-            ],
-            note: "يمكن اختيار أي أداة أو جمع النتائج من جميعها للحصول على تغطية شاملة لكل النطاقات النشطة."
-          }
-        ]
-      },
-
-      // Web Content
-      {
-        section: "اكتشاف محتوى الويب (Web Content Discover)",
-        id: "web-content",
-        items: [
-          {
-            title: "Waybackurls",
-            level: "أساسي",
-            body: "باستخدام قائمة جميع النطاقات الفرعية المكتشفة، يمكن استخراج جميع الروابط والملفات القديمة والموثوقة التي تم أرشفتها سابقاً على Wayback Machine.",
-            commands: [
-              {label: "waybackurls", cmd: "cat allsubdomain.txt | waybackurls > wayback_links.txt", link: "https://github.com/tomnomnom/waybackurls"}
-            ],
-            note: "يمكن لاحقاً استخدام هذه الروابط لاختبارات إضافية مثل فحص محتوى قديم أو نقاط إدخال محتملة."
-          }
-        ]
-      }
-    ];
-
-    const content = document.getElementById('content');
-    const selector = document.getElementById('sectionSelector');
-    const toast = document.getElementById('toast');
-
-    function renderSections(){
-      content.innerHTML = '';
-      STEPS.forEach(group=>{
-        const sec = document.createElement('div');
-        sec.className='section'; sec.id = group.id;
-        const h2=document.createElement('h2'); h2.textContent=group.section; sec.appendChild(h2);
-
-        group.items.forEach((item,index)=>{
-          const card=document.createElement('div'); 
-          card.className='card';
-          card.style.background = index%2===0 ? "#1a2a36" : "#203343";
-          
-          const h3=document.createElement('h3'); h3.textContent=item.title;
-          const badge=document.createElement('div'); badge.className='badge';
-          badge.classList.add(item.level==="متقدم"?"success":"primary");
-          badge.textContent=item.level;
-          const p=document.createElement('p'); p.textContent=item.body;
-          card.append(h3,badge,p);
-
-          item.commands.forEach(c=>{
-            const wrap=document.createElement('div'); wrap.className='code';
-            const pre=document.createElement('pre'); pre.textContent=c.cmd;
-            const btn=document.createElement('button'); btn.className='copy-btn'; btn.textContent='نسخ';
-            btn.onclick=()=>copyToClipboard(c.cmd,btn);
-            wrap.append(pre,btn);
-
-            const cap=document.createElement('div'); cap.style.fontSize='12px'; cap.style.color='#77c9d4';
-            if(c.link){
-              const a = document.createElement('a');
-              a.href = c.link;
-              a.target = "_blank";
-              a.textContent = c.label;
-              a.style.color = "#4dd0e1";
-              a.style.textDecoration = "underline";
-              cap.appendChild(a);
-            } else {
-              cap.textContent=c.label;
-            }
-            card.append(wrap,cap);
-          });
-
-          if(item.note){
-            const note=document.createElement('div');
-            note.className='note';
-            note.textContent=item.note;
-            card.append(note);
-          }
-          sec.append(card);
-        });
-        content.append(sec);
-      });
+    /* تبديل الأقسام الرئيسية */
+    function toggleSection(el){
+      el.classList.toggle('active');
+      el.nextElementSibling.classList.toggle('show');
     }
-
-    function renderSelector(){
-      selector.innerHTML='';
-      STEPS.forEach((group,i)=>{
-        const btn=document.createElement('button');
-        btn.textContent=group.section;
-        btn.onclick=()=>showSection(group.id,btn);
-        selector.append(btn);
-      });
+    /* تبديل مربعات النزول/الصعود */
+    function toggleCollapse(header){
+      header.classList.toggle('active');
+      header.nextElementSibling.classList.toggle('show');
     }
-
-    function showSection(id,btn){
-      document.querySelectorAll('.section').forEach(sec=>sec.style.display='none');
-      document.getElementById(id).style.display='block';
-      document.querySelectorAll('.selector button').forEach(b=>b.classList.remove('active'));
-      btn.classList.add('active');
+    /* نسخ الأوامر */
+    function copyText(btn){
+      const txt = btn.previousElementSibling.textContent.trim();
+      navigator.clipboard.writeText(txt);
+      btn.textContent = 'تم النسخ!';
+      setTimeout(()=> btn.textContent='نسخ', 1200);
     }
-
-    function copyToClipboard(text,btn){
-      navigator.clipboard.writeText(text).then(()=>{
-        showToast();
-      });
-      btn.textContent='✔'; setTimeout(()=>btn.textContent='نسخ',800);
-    }
-
-    function showToast(){
-      toast.classList.add('show');
-      clearTimeout(showToast._t);
-      showToast._t=setTimeout(()=>toast.classList.remove('show'),1200);
-    }
-
-    renderSections();
-    renderSelector();
-    if(STEPS.length>0){showSection(STEPS[0].id, selector.querySelector('button'));}
   </script>
 </body>
 </html>
