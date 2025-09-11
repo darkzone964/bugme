@@ -533,14 +533,11 @@
       أداة بايثون خفيفة تبحث عن معاملات URL (?id=& / ?page=&) داخل الملفات النصية أو الروابط الحية، مع إمكانية استبعاد امتدادات معينة والتحكم بعمق البحث؛ مفيدة لاكتشاف نقاط حقن أو مسارات مخفية.
     </div>
     <div class="card">
-      <pre class="ltr">python3 paramspider.py -l subs.txt -o paramspider_out.txt --level high --exclude woff,css,js,png,svg,jpg</pre>
+      <pre class="ltr">python3 paramspider.py -l subs.txt </pre>
       <button class="copyBtn" onclick="copyText(this)">نسخ</button>
     </div>
     <div class="descBox">
       <b>-l subs.txt</b>: قائمة الروابط الحية (كل رابط في سطر).<br>
-      <b>-o paramspider_out.txt</b>: الملف الناتج الذي يحتوي على الروابط التي تحتوي معاملات.<br>
-      <b>--level high</b>: يزيد عمق البحث ويُخرج أكبر عدد ممكن من النتائج.<br>
-      <b>--exclude woff,css,js,png,svg,jpg</b>: يستبعد الملفات الثابتة غير المهتمة لنا (لتقليل الضجيج).
     </div>
 
     <div class="descBox">
