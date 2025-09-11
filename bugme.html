@@ -400,10 +400,11 @@
       يدعم أكثر من 10 متصفحات (Chromium، Firefox…) ويُخرج تقارير HTML منظَّمة مع فهرس بحسب حالة الاستجابة (200، 401، 500 …)، ويُمكنه التقاط صفحات تسجيل الدخول تلقائياً.
     </div>
     <div class="card">
-      <pre class="ltr">eyewitness -f alive.txt -d eyewitness_report</pre>
+      <pre class="ltr">eyewitness --web -f alive.txt -d eyewitness_report</pre>
       <button class="copyBtn" onclick="copyText(this)">نسخ</button>
     </div>
     <div class="descBox">
+      <b> --web</b> وضع فحص الويب (URLs).<br>
       <b>-f alive.txt</b>: قائمة الأهداف الحية.<br>
       <b>-d eyewitness_report</b>: مجلد يُخرج فيه التقرير والصور.<br>
       <b>النتيجة:</b> افتح <code>eyewitness_report/report.html</code> لتجد معاينات مرتبة حسب الحالة مع عرض سريع للعنوان والعنوان الوحيد.
