@@ -491,17 +491,19 @@
       مكتوبة بلغة Rust فهي أسرع، تدعم التخمين المتكرر (recursive)، وتصفية حالات معينة، وترويسات مخصصة، وتُناسب اختبار الملفات والأدلة معاً.
     </div>
     <div class="card">
-      <pre class="ltr">feroxbuster -U subs.txt -w wordlist.txt -t 50 -x php,html,js,txt -H "User-Agent: curl/7.68.0" -H "X-Originating-IP: 127.0.0.1" -o ferox_out.txt</pre>
+      <pre class="ltr">cat live.txt | feroxbuster -w /usr/share/seclists/Discovery/Web-Content/raft-medium-directories-lowercase.txt -t 50 -x php,html,js,txt -H "User-Agent
+: curl/7.68.0" -H "X-Originating-IP: 127.0.0.1"   --stdin -o ferox_out.txt</pre>
       <button class="copyBtn" onclick="copyText(this)">نسخ</button>
     </div>
     <div class="descBox">
-      <b>-U subs.txt</b>: يقرأ الروابط من الملف (كل رابط في سطر).<br>
+      <b>cat live.txt</b>: يقرأ الروابط من الملف (كل رابط في سطر).<br>
       <b>-w wordlist.txt</b>: قاموس المسارات أو الملفات.<br>
       <b>-t 50</b>: عدد الخيوط (50) لتسريع العملية.<br>
       <b>-x php,html,js,txt</b>: يُلحق هذه الامتدادات بكل مسار (يبحث عن ملفات).<br>
       <b>-H "User-Agent: curl/7.68.0"</b>: ترويسة User-Agent مخصصة.<br>
       <b>-H "X-Originating-IP: 127.0.0.1"</b>: ترويسة إضافية قد تُخدع بها بعض أدوات التوجيه.<br>
       <b>-o ferox_out.txt</b>: حفظ النتائج في ملف نصي منظم.
+      <b>--stdin أضفت --stdin في النهاية حتى يعرف feroxbuster ياخذ URLs من cat live.txt.</b>
     </div>
 
     <div class="descBox">
