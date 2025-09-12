@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <title>BY DARK ZONE :: bugme</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Cairo:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400     ;700&family=Cairo:wght@400;600&display=swap" rel="stylesheet">
   <style>
   :root{
     --bg:#00010a;
@@ -183,6 +183,10 @@
   <div class="menuItem" onclick="showPanel('active')"><span>◈ Active Subdomain</span></div>
   <div class="menuItem" onclick="showPanel('alive')"><span>◈ Check Alive</span></div>
   <div class="menuItem" onclick="showPanel('content')"><span>◈ Web Content Discover</span></div>
+  <!-- ✅ الإضافة فقط: زر القسم الجديد -->
+  <hr class="sidebar-divider">
+  <div class="menuItem" onclick="showPanel('info')"><span>◈ Information Disclosure</span></div>
+  <div class="menuItem" onclick="showPanel('banner')"><span>◈ Server Banner Version</span></div>
 </nav>
 
 <main id="main">
@@ -195,22 +199,22 @@
     </div>
 
     <div class="card">
-      <pre>https://dorks.xen00rw.me/ </pre>
+      <pre>https://dorks.xen00rw.me/      </pre>
       <button class="copyBtn" onclick="copyText(this)">نسخ</button>
     </div>
 
     <div class="card">
-      <pre>https://guilherme-moraiss.github.io/Deep-Dork-Web/ </pre>
+      <pre>https://guilherme-moraiss.github.io/Deep-Dork-Web/      </pre>
       <button class="copyBtn" onclick="copyText(this)">نسخ</button>
     </div>
 
     <div class="card">
-      <pre>https://taksec.github.io/google-dorks-bug-bounty/ </pre>
+      <pre>https://taksec.github.io/google-dorks-bug-bounty/      </pre>
       <button class="copyBtn" onclick="copyText(this)">نسخ</button>
     </div>
 
     <div class="card">
-      <pre>https://darkzone964.github.io/dorkme/dorkme.html </pre>
+      <pre>https://darkzone964.github.io/dorkme/dorkme.html      </pre>
       <button class="copyBtn" onclick="copyText(this)">نسخ</button>
     </div>
   </div>
@@ -245,7 +249,7 @@
     </div>
 
     <p>
-      تحميل الأداة: <a class="tool" href="https://github.com/projectdiscovery/subfinder" target="_blank" rel="noopener">subfinder</a>
+      تحميل الأداة: <a class="tool" href="https://github.com/projectdiscovery/subfinder      " target="_blank" rel="noopener">subfinder</a>
     </p>
   </div>
 
@@ -275,11 +279,11 @@
     </div>
 
     <div class="card">
-      <pre class="ltr">ffuf -u http://www.example.com  -H "Host: FUZZ.example.com" -w vhosts.txt -mc 200 -o vhost_results.txt</pre>
+      <pre class="ltr">ffuf -u http://www.example.com       -H "Host: FUZZ.example.com" -w vhosts.txt -mc 200 -o vhost_results.txt</pre>
       <button class="copyBtn" onclick="copyText(this)">نسخ</button>
     </div>
     <div class="descBox">
-      <b>-u http://www.example.com </b>: الرابط الأساسي الذي سيتم اختباره.<br>
+      <b>-u http://www.example.com       </b>: الرابط الأساسي الذي سيتم اختباره.<br>
       <b>-H "Host: FUZZ.example.com"</b>: تعديل رأس Host ليكون FUZZ.example.com.<br>
       <b>-w vhosts.txt</b>: قائمة كلمات الـ vhost (ستُستبدل بدل FUZZ).<br>
       <b>-mc 200</b>: إظهار النتائج التي ترجع حالة 200 فقط.<br>
@@ -304,7 +308,7 @@
     <div class="descBox">
       <span class="highlight">قاموس جاهز (SecLists)</span><br>
       أكبر مشروع قواميس اختبار الاختراق يحتوي على ملايين الكلمات الجاهزة للطفرات والتخمين.
-      <br><a class="tool" href="https://github.com/danielmiessler/SecLists/tree/master/Discovery/DNS" target="_blank" rel="noopener">⇢ تحميل قاموس DNS من SecLists</a>
+      <br><a class="tool" href="https://github.com/danielmiessler/SecLists/tree/master/Discovery/DNS      " target="_blank" rel="noopener">⇢ تحميل قاموس DNS من SecLists</a>
     </div>
 
   </div>
@@ -557,12 +561,139 @@
 
     <p>
       تحميل الأدوات:<br>
-      <a class="tool" href="https://github.com/devanshbatham/paramspider" target="_blank" rel="noopener">paramspider</a> |
-      <a class="tool" href="https://github.com/ImAyrix/fallparams" target="_blank" rel="noopener">fallparams</a>
+      <a class="tool" href="https://github.com/devanshbatham/paramspider       " target="_blank" rel="noopener">paramspider</a> |
+      <a class="tool" href="https://github.com/ImAyrix/fallparams       " target="_blank" rel="noopener">fallparams</a>
     </p>
 
   </div>
+
+  <!-- ✅ Information Disclosure -->
+  <div id="info" class="panel">
+    <h2 style="color:var(--neon1); margin-bottom:1rem;">Information Disclosure</h2>
+
+    <div class="descBox">
+      <span class="highlight">ماهو Information Disclosure؟</span><br>
+      هي ثغرة أمنية تؤدي إلى تسريب معلومات حساسة أو خاصة بالنظام، مثل:
+      <ul style="margin-top:0.5rem; margin-right:1.2rem;">
+        <li>مسارات ملفات داخلية أو بنية المجلدات.</li>
+        <li>مفاتيح API، كلمات سر، أو روابط إدارة مخفية.</li>
+        <li>ملفات إعدادات مثل <code>.env</code> أو <code>config.php</code>.</li>
+        <li>ملفات نسخ احتياطية أو سجلات (logs).</li>
+        <li>تعليقات مطورين تحتوي على بيانات حساسة.</li>
+      </ul>
+    </div>
+
+    <div class="subTitle">▎ لماذا تُعد خطيرة؟</div>
+    <div class="descBox">
+      تُعطي المهاجم فكرة واضحة عن بنية التطبيق، تقنيات المستخدمة، وأحيانًا تُفتح له باب للوصول إلى ثغرات أعمق مثل:
+      <br>• <code>Local File Inclusion (LFI)</code> أو <code>Remote Code Execution (RCE)</code>.
+    </div>
+  </div>
+
+<!-- ✅ Server Banner Version -->
+  <div id="banner" class="panel">
+    <h2 style="color:var(--neon1); margin-bottom:1rem;">Server Banner Version</h2>
+
+    <div class="descBox">
+      <span class="highlight">ما هو Server Banner؟</span><br>
+      هو الحقل <code>Server</code> في رأس الاستجابة HTTP يكشف عن نوع الخادم وإصداره مثل:
+      <pre class="ltr">Server: nginx/1.18.0 (Ubuntu)</pre>
+      أو
+      <pre class="ltr">Server: Apache/2.4.41 (Win64) OpenSSL/1.1.1c</pre>
+    </div>
+
+    <div class="subTitle">▎ الفائدة من كشف الإصدار</div>
+    <div class="descBox">
+      • معرفة التقنيات المستخدمة يُسرّع عملية التخطيط للهجوم.<br>
+      • البحث في قواعد بيانات الثغرات (CVE) عن ثغرات معروفة في الإصدار المكتشف.<br>
+      • تحديد آخر إصدار آمن والضغط من أجل التحديث.
+    </div>
+
+    <div class="subTitle">▎ الخطورة</div>
+    <div class="descBox">
+      إظهار الإصدار الدقيق = خريطة طريق للمهاجم:
+      <ul style="margin-top:0.5rem; margin-right:1.2rem;">
+        <li>ثغرات عامة مثل <code>CVE-2021-41773</code> لـ Apache 2.4.49.</li>
+        <li>ثغرات خاصة بالإضافات (modules) المثبتة.</li>
+        <li>تخطيط هجمات مخصصة (exploit kits) تعتمد على الإصدار.</li>
+      </ul>
+    </div>
+
+    <!-- الأمر 1 -->
+    <div class="card">
+      <pre class="ltr">cat live.txt | httpx-toolkit -tls-grab -title -tech-detect -web-server -status-code -content-length -o http_banners.txt</pre>
+      <button class="copyBtn" onclick="copyText(this)">نسخ</button>
+    </div>
+    <div class="descBox">
+      <b>الأمر الشامل لجمع أكبر قدر من البيانات السطحية في لقطة واحدة:</b><br>
+      <b>-tls-grab</b> يسحب شهادة TLS ويعرض CN، SAN، Issuer وتواريخ الانتهاء.<br>
+      <b>-title</b> يعرض عنوان الصفحة (title tag) مباشرة.<br>
+      <b>-tech-detect</b> يكشف التقنيات المستخدمة (مثل PHP, ASP.NET, Node.js) عبر التوقيعات.<br>
+      <b>-web-server</b> يستخرج حقل Server الكامل (Banner) بدقة.<br>
+      <b>-status-code</b> يضيف رمز الاستجابة HTTP (200, 404 …).<br>
+      <b>-content-length</b> يضيف طول الجسم (Content-Length) لتمييز الصفحات الديناميكية.<br>
+      <b>-o http_banners.txt</b> يحفظ كل هذه المعلومات في ملف واحد منظم وسهل الفلترة.<br>
+      <span class="highlight">الفائدة:</span> تجميع خارطة تقنية شاملة للأهداف الحية خلال ثوانٍ دون الحاجة لإرسال طلبات يدوية متكررة.
+    </div>
+
+    <!-- الأمر 2 -->
+    <div class="card">
+      <pre class="ltr">cat live.txt | while read u; do echo "=== $u ==="; curl -Is --max-time 10 "$u" | sed -n '1,20p'; done > banners_curl.txt</pre>
+      <button class="copyBtn" onclick="copyText(this)">نسخ</button>
+    </div>
+    <div class="descBox">
+      <b>حلقة bash بسيطة لجلب رؤوس الاستجابة الأولى لكل هدف:</b><br>
+      <b>while read u</b> يقرأ كل رابط من ملف live.txt سطرًا سطرًا.<br>
+      <b>echo "=== $u ==="</b> يطبع فاصل بين النتائج لتسهيل القراءة.<br>
+      <b>curl -Is --max-time 10 "$u"</b> يرسل طلب HEAD فقط مع مهلة 10 ثوانٍ.<br>
+      <b>sed -n '1,20p'</b> يقتطع أول 20 سطرًا من الرد (يكفي لرؤية الرؤوس المهمة).<br>
+      <b>> banners_curl.txt</b> يحفظ كل الرؤوس في ملف نصي موحد.<br>
+      <span class="highlight">الفائدة:</span> تعمل حتى في البيئات التي لا تدعم httpx-toolkit، وتعطيك رؤية سريعة على البنية العامة للخادم.
+    </div>
+
+    <!-- الأمر 3 -->
+    <div class="card">
+      <pre class="ltr">OPENSSL_BIN=$(command -v openssl) && perl -ne 'chomp; next if /^\s*$/; s{^[a-zA-Z]+://}{}; s{/.*$}{}; s{.*@}{}; next if /^(127\.0\.0\.1|localhost)$/; print "$_\n";' live.txt | awk '{ if ($0 !~ /:/) print $0":443"; else print }' | sort -u | xargs -I{} bash -c './testssl.sh --openssl="$1" -U "$2"' _ "$OPENSSL_BIN" {}</pre>
+      <button class="copyBtn" onclick="copyText(this)">نسخ</button>
+    </div>
+    <div class="descBox">
+      <b>فحص شامل لإعدادات TLS/SSL باستخدام <a class="tool" href="https://github.com/testssl/testssl.sh" target="_blank" rel="noopener">testssl.sh</a>:</b><br>
+      <b>OPENSSL_BIN=$(command -v openssl)</b> يتحقق من وجود ثنائية OpenSSL ويخزن المسار.<br>
+      <b>perl -ne ...</b> ينظف الروابط من live.txt (يزيل البروتوكول، المسار، المستخدم، ويستبعد localhost).<br>
+      <b>awk '{ if ($0 !~ /:/) print $0":443"; else print }'</b> يضيف المنفذ 443 تلقائياً للنطاقات التي لا تحتوي على منفذ.<br>
+      <b>sort -u</b> يزيل التكرارات.<br>
+      <b>xargs -I{} bash -c './testssl.sh --openssl="$1" -U "$2"' _ "$OPENSSL_BIN" {}</b> يشغل testssl.sh على كل نطاق مع خيار -U (فحص سريع) لاستخراج إصدارات TLS، الشفرات، امتدادات TLS، ونقاط الضعف المعروفة (مثل Heartbleed، CCS Injection).<br>
+      <span class="highlight">الفائدة:</span> تقرير كامل عن أمان الطبقة النقلية خلال دقائق، يساعدك على اكتشاف شهادات منتهية، بروتوكلات قديمة، أو ثغرات TLS قبل أن يستغلها المهاجم.
+    </div>
+
+    <!-- الأمر 4 الجديد -->
+    <div class="card">
+      <pre class="ltr">whatweb -i live.txt -a 3 --log-brief whatweb_out.txt</pre>
+      <button class="copyBtn" onclick="copyText(this)">نسخ</button>
+    </div>
+    <div class="descBox">
+      <b>كشف التقنيات المستخدمة بواسطة <a class="tool" href="https://github.com/urbanadventurer/WhatWeb" target="_blank" rel="noopener">WhatWeb</a>:</b><br>
+      <b>-i live.txt</b> يقرأ قائمة الروابط من الملف.<br>
+      <b>-a 3</b> مستوى عدوانية عالي (يُخفي التعليقات، يتبع التوجيهات، يُجرب أكثر من 900 توقيع).<br>
+      <b>--log-brief whatweb_out.txt</b> يحفظ النتائج المختصرة في ملف موحد يحتوي على أسماء التقنيات المكتشفة فقط.<br>
+      <span class="highlight">الفائدة:</span> في ثوانٍ تحصل على قائمة دقيقة بإصدارات CMS، لوحات التحكم، إضافات JavaScript، أنظمة التشغيل، وحتى أرقام الإصدارات الدقيقة؛ مما يسهل مطابقتها مع قواعد الثغرات فورًا.
+    </div>
+	<!-- الأمر 5 الجديد -->
+    <div class="card">
+      <pre class="ltr">masscan -iL live.txt -p1-65535 --rate=1000 -oG masscan_grepable.txt</pre>
+      <button class="copyBtn" onclick="copyText(this)">نسخ</button>
+    </div>
+    <div class="descBox">
+      <b>مسح كامل للمنافذ TCP بسرعة عالية باستخدام <a class="tool" href="https://github.com/robertdavidgraham/masscan" target="_blank" rel="noopener">masscan</a>:</b><br>
+      <b>-iL live.txt</b> يستورد قائمة الأهداف من الملف.<br>
+      <b>-p1-65535</b> يفحص كافة المنافذ من 1 إلى 65535 (كامل النطاق).<br>
+      <b>--rate=1000</b> يحدد معدل الإرسال إلى 1000 حزمة/ثانية (يمكن زيادته حسب قدرة الشبكة).<br>
+      <b>-oG masscan_grepable.txt</b> يخرج النتائج بتنسيق grepable يسهل فلترته مع awk/grep.<br>
+      <span class="highlight">الفائدة:</span> إنجاز مسح المنفذ الكامل لآلاف الأهداف خلال دقائق، مما يسمح لك بتحديد الخدمات غير المعروفة أو المنافذ المفتوحة عشوائيًا قبل البدء في الفحص التفصيلي.
+    </div>
+  </div>
 </main>
+
 
 <script>
   const menuToggle = document.getElementById('menuToggle');
