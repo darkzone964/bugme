@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <title>BY DARK ZONE :: bugme</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400     ;700&family=Cairo:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400      ;700&family=Cairo:wght@400;600&display=swap" rel="stylesheet">
   <style>
   :root{
     --bg:#00010a;
@@ -187,6 +187,7 @@
   <hr class="sidebar-divider">
   <div class="menuItem" onclick="showPanel('info')"><span>◈ Information Disclosure</span></div>
   <div class="menuItem" onclick="showPanel('banner')"><span>◈ Server Banner Version</span></div>
+  <div class="menuItem" onclick="showPanel('error')"><span>◈ Error Messages</span></div>
 </nav>
 
 <main id="main">
@@ -199,22 +200,22 @@
     </div>
 
     <div class="card">
-      <pre>https://dorks.xen00rw.me/      </pre>
+      <pre>https://dorks.xen00rw.me/       </pre>
       <button class="copyBtn" onclick="copyText(this)">نسخ</button>
     </div>
 
     <div class="card">
-      <pre>https://guilherme-moraiss.github.io/Deep-Dork-Web/      </pre>
+      <pre>https://guilherme-moraiss.github.io/Deep-Dork-Web/       </pre>
       <button class="copyBtn" onclick="copyText(this)">نسخ</button>
     </div>
 
     <div class="card">
-      <pre>https://taksec.github.io/google-dorks-bug-bounty/      </pre>
+      <pre>https://taksec.github.io/google-dorks-bug-bounty/       </pre>
       <button class="copyBtn" onclick="copyText(this)">نسخ</button>
     </div>
 
     <div class="card">
-      <pre>https://darkzone964.github.io/dorkme/dorkme.html      </pre>
+      <pre>https://darkzone964.github.io/dorkme/dorkme.html       </pre>
       <button class="copyBtn" onclick="copyText(this)">نسخ</button>
     </div>
   </div>
@@ -249,7 +250,7 @@
     </div>
 
     <p>
-      تحميل الأداة: <a class="tool" href="https://github.com/projectdiscovery/subfinder      " target="_blank" rel="noopener">subfinder</a>
+      تحميل الأداة: <a class="tool" href="https://github.com/projectdiscovery/subfinder       " target="_blank" rel="noopener">subfinder</a>
     </p>
   </div>
 
@@ -279,11 +280,11 @@
     </div>
 
     <div class="card">
-      <pre class="ltr">ffuf -u http://www.example.com       -H "Host: FUZZ.example.com" -w vhosts.txt -mc 200 -o vhost_results.txt</pre>
+      <pre class="ltr">ffuf -u http://www.example.com        -H "Host: FUZZ.example.com" -w vhosts.txt -mc 200 -o vhost_results.txt</pre>
       <button class="copyBtn" onclick="copyText(this)">نسخ</button>
     </div>
     <div class="descBox">
-      <b>-u http://www.example.com       </b>: الرابط الأساسي الذي سيتم اختباره.<br>
+      <b>-u http://www.example.com        </b>: الرابط الأساسي الذي سيتم اختباره.<br>
       <b>-H "Host: FUZZ.example.com"</b>: تعديل رأس Host ليكون FUZZ.example.com.<br>
       <b>-w vhosts.txt</b>: قائمة كلمات الـ vhost (ستُستبدل بدل FUZZ).<br>
       <b>-mc 200</b>: إظهار النتائج التي ترجع حالة 200 فقط.<br>
@@ -308,7 +309,7 @@
     <div class="descBox">
       <span class="highlight">قاموس جاهز (SecLists)</span><br>
       أكبر مشروع قواميس اختبار الاختراق يحتوي على ملايين الكلمات الجاهزة للطفرات والتخمين.
-      <br><a class="tool" href="https://github.com/danielmiessler/SecLists/tree/master/Discovery/DNS      " target="_blank" rel="noopener">⇢ تحميل قاموس DNS من SecLists</a>
+      <br><a class="tool" href="https://github.com/danielmiessler/SecLists/tree/master/Discovery/DNS       " target="_blank" rel="noopener">⇢ تحميل قاموس DNS من SecLists</a>
     </div>
 
   </div>
@@ -561,8 +562,8 @@
 
     <p>
       تحميل الأدوات:<br>
-      <a class="tool" href="https://github.com/devanshbatham/paramspider       " target="_blank" rel="noopener">paramspider</a> |
-      <a class="tool" href="https://github.com/ImAyrix/fallparams       " target="_blank" rel="noopener">fallparams</a>
+      <a class="tool" href="https://github.com/devanshbatham/paramspider        " target="_blank" rel="noopener">paramspider</a> |
+      <a class="tool" href="https://github.com/ImAyrix/fallparams        " target="_blank" rel="noopener">fallparams</a>
     </p>
 
   </div>
@@ -590,7 +591,7 @@
     </div>
   </div>
 
-<!-- ✅ Server Banner Version -->
+  <!-- ✅ Server Banner Version -->
   <div id="banner" class="panel">
     <h2 style="color:var(--neon1); margin-bottom:1rem;">Server Banner Version</h2>
 
@@ -657,7 +658,7 @@
       <button class="copyBtn" onclick="copyText(this)">نسخ</button>
     </div>
     <div class="descBox">
-      <b>فحص شامل لإعدادات TLS/SSL باستخدام <a class="tool" href="https://github.com/testssl/testssl.sh" target="_blank" rel="noopener">testssl.sh</a>:</b><br>
+      <b>فحص شامل لإعدادات TLS/SSL باستخدام <a class="tool" href="https://github.com/testssl/testssl.sh " target="_blank" rel="noopener">testssl.sh</a>:</b><br>
       <b>OPENSSL_BIN=$(command -v openssl)</b> يتحقق من وجود ثنائية OpenSSL ويخزن المسار.<br>
       <b>perl -ne ...</b> ينظف الروابط من live.txt (يزيل البروتوكول، المسار، المستخدم، ويستبعد localhost).<br>
       <b>awk '{ if ($0 !~ /:/) print $0":443"; else print }'</b> يضيف المنفذ 443 تلقائياً للنطاقات التي لا تحتوي على منفذ.<br>
@@ -672,28 +673,96 @@
       <button class="copyBtn" onclick="copyText(this)">نسخ</button>
     </div>
     <div class="descBox">
-      <b>كشف التقنيات المستخدمة بواسطة <a class="tool" href="https://github.com/urbanadventurer/WhatWeb" target="_blank" rel="noopener">WhatWeb</a>:</b><br>
+      <b>كشف التقنيات المستخدمة بواسطة <a class="tool" href="https://github.com/urbanadventurer/WhatWeb " target="_blank" rel="noopener">WhatWeb</a>:</b><br>
       <b>-i live.txt</b> يقرأ قائمة الروابط من الملف.<br>
       <b>-a 3</b> مستوى عدوانية عالي (يُخفي التعليقات، يتبع التوجيهات، يُجرب أكثر من 900 توقيع).<br>
       <b>--log-brief whatweb_out.txt</b> يحفظ النتائج المختصرة في ملف موحد يحتوي على أسماء التقنيات المكتشفة فقط.<br>
       <span class="highlight">الفائدة:</span> في ثوانٍ تحصل على قائمة دقيقة بإصدارات CMS، لوحات التحكم، إضافات JavaScript، أنظمة التشغيل، وحتى أرقام الإصدارات الدقيقة؛ مما يسهل مطابقتها مع قواعد الثغرات فورًا.
     </div>
-	<!-- الأمر 5 الجديد -->
+  </div>
+
+ <!-- ✅ Error Messages -->
+  <div id="error" class="panel">
+    <h2 style="color:var(--neon1); margin-bottom:1rem;">Error Messages</h2>
+
+    <div class="descBox">
+      <span class="highlight">ما هي رسائل الخطأ؟</span><br>
+      هي الاستجابات التي يُرجعها الخادم عند حدوث مشكلة (مثل 404، 500، 403) وغالبًا ما تحتوي على تفاصيل داخلية مثل:
+      <ul style="margin-top:0.5rem; margin-right:1.2rem;">
+        <li>مسارات ملفات حقيقية على القرص.</li>
+        <li>أنواع قواعد البيانات المستخدمة.</li>
+        <li>إصدارات اللغات أو الإطارات (PHP، ASP.NET، Django).</li>
+        <li>متغيرات بيئة أو أسماء مستخدمين داخليين.</li>
+      </ul>
+    </div>
+
+    <div class="subTitle">▎ الفائدة من جمع رسائل الخطأ</div>
+    <div class="descBox">
+      • تكشف بنية المجلدات وتقنيات الخادم دون الحاجة لطلبات استكشاف إضافية.<br>
+      • تساعد على تقليل نطاق البحث عن الثغرات عن طريق معرفة الإصدار الدقيق.<br>
+      • تُستخدم لبناء هجمات أكثر دقة (مثل LFI، SQLi، RCE) بناءً على المعلومات المسربة.
+    </div>
+
+    <div class="subTitle">▎ الخطورة</div>
+    <div class="descBox">
+      إظهار تفاصيل الخطأ = تسريب معلومات حساسة:
+      <ul style="margin-top:0.5rem; margin-right:1.2rem;">
+        <li>مسار كامل قد يكشف نظام التشغيل أو أسماء المستخدمين.</li>
+        <li>خطأ قاعدة بيانات قد يكشف نوع الـ DB وحقول الجدول.</li>
+        <li>stack trace قد يعرض دوال داخلية أو مفاتيح API.</li>
+      </ul>
+    </div>
+
+    <!-- الأمر الجديد -->
     <div class="card">
-      <pre class="ltr">masscan -iL live.txt -p1-65535 --rate=1000 -oG masscan_grepable.txt</pre>
+      <pre class="ltr">cat urls.txt |
+grep -E '\.(php|asp|jsp|json|api)' |
+httpx-toolkit -mc 400,401,402,403,404,405,406,407,408,409,410,411,412,413,414,415,416,417,418,421,422,423,424,425,426,428,429,431,451,500,501,502,503,504,505,506,507,508,510,511 -server -title -o wayback-errors.txt</pre>
       <button class="copyBtn" onclick="copyText(this)">نسخ</button>
     </div>
     <div class="descBox">
-      <b>مسح كامل للمنافذ TCP بسرعة عالية باستخدام <a class="tool" href="https://github.com/robertdavidgraham/masscan" target="_blank" rel="noopener">masscan</a>:</b><br>
-      <b>-iL live.txt</b> يستورد قائمة الأهداف من الملف.<br>
-      <b>-p1-65535</b> يفحص كافة المنافذ من 1 إلى 65535 (كامل النطاق).<br>
-      <b>--rate=1000</b> يحدد معدل الإرسال إلى 1000 حزمة/ثانية (يمكن زيادته حسب قدرة الشبكة).<br>
-      <b>-oG masscan_grepable.txt</b> يخرج النتائج بتنسيق grepable يسهل فلترته مع awk/grep.<br>
-      <span class="highlight">الفائدة:</span> إنجاز مسح المنفذ الكامل لآلاف الأهداف خلال دقائق، مما يسمح لك بتحديد الخدمات غير المعروفة أو المنافذ المفتوحة عشوائيًا قبل البدء في الفحص التفصيلي.
+      <b>استخراج الروابط التي تُرجع رسائل خطأ مع reveal تقني:</b><br>
+      <b>grep -E '\.(php|asp|jsp|json|api)'</b> يُرشح فقط المسارات الديناميكية أو نقاط API الأكثر احتمالاً لإظهار تفاصيل الخطأ.<br>
+      <b>-mc 4xx,5xx</b> يستهدف جميع أكواد الخطأ من 400 إلى 511 لضمان أوسع نطاق تغطية.<br>
+      <b>-server -title</b> يُضيف حقل Server وعنوان الصفحة لكل استجابة خطأ، مما يسهل تمييز التقنية المسببة دون فتح الرابط يدوياً.<br>
+      <b>-o wayback-errors.txt</b> يُخرج قائمة مختصرة تحتوي الرابط، كود الخطأ، العنوان، والبيانار؛ جاهزة للمراجعة السريعة أو الفلترة اللاحقة.<br>
+      <span class="highlight">الفائدة:</span> في دقيقة واحدة تحصل على كنز من المسارات التي تُظهر تفاصيل داخلية، تُستخدم لاحقاً لرسم خارطة تقنية دقيقة أو لاستغلال الثغرات المعروفة المرتبطة بالإصدار المُكتشف.
+    </div>
+	    <!-- الأمر 2: استخراج أخطاء SQL من معاملات URL -->
+    <div class="card">
+      <pre class="ltr">while IFS= read -r u; do
+  for p in "'or 1=1--" "' and 1=2--" "1'/**/or/**/1=1#"; do
+    echo "==== $u?x=$p ===="
+    curl -skL "$u?x=$p" | grep -iE "(mysql|sql|syntax|warning|error|exception)" | head -5
+  done
+done < live.txt | tee sqli-errors.txt</pre>
+      <button class="copyBtn" onclick="copyText(this)">نسخ</button>
+    </div>
+    <div class="descBox">
+      <b>حلقة أوتوماتيكية للبحث عن أخطاء SQL عن طريق حقن بسيط في معاملات URL:</b><br>
+      <b>IFS= read -r u</b> يقرأ كل رابط من urls.txt دون تجزئة المسافات.<br>
+      <b>for p in ...</b> يجرب ثلاث حمولات حقن SQL شائعة (OR True، OR False، مع تعليقات مختلفة).<br>
+      <b>curl -skL "$u?x=$p"</b> يرسل الطلب مع متغير x ويُخفي الأخطاء ويتبع التوجيهات.<br>
+      <b>grep -iE "(mysql|sql|syntax|warning|error|exception)"</b> يبحث عن كلمات مفتاحية تشير إلى خطأ قاعدة بيانات.<br>
+      <b>head -5</b> يقتصر على أول 5 أسطر لتجنب التكرار.<br>
+      <b>tee sqli-errors.txt</b> يعرض النتائج على الشاشة ويحفظها في ملف.<br>
+      <span class="highlight">الفائدة:</span> خلال دقائق تحصل على قائمة مختصرة بالروابط التي تُظهر أخطاء SQL، مما يشير إلى احتمال وجود ثغرة SQL Injection قابلة للاستغلال.
+    </div>
+	    <!-- الأمر 3: استخدام Nuclei لفحص أخطاء التكوين والتصحيح -->
+    <div class="card">
+      <pre class="ltr">nuclei -l urls.txt -t misconfiguration/error-msg.yaml -t misconfiguration/debug-detect.yaml -o nuclei-errors.txt</pre>
+      <button class="copyBtn" onclick="copyText(this)">نسخ</button>
+    </div>
+    <div class="descBox">
+      <b>مسح أوتوماتيكي لأخطاء التكوين وتفعيل وضع التصحيح باستخدام <a class="tool" href="https://github.com/projectdiscovery/nuclei-templates" target="_blank" rel="noopener">Nuclei</a>:</b><br>
+      <b>-l urls.txt</b> يستورد قائمة الأهداف من الملف.<br>
+      <b>-t misconfiguration/error-msg.yaml</b> يستهدف قوالب كشف رسائل الخطأ التفصيلية (مثل Apache, Nginx, IIS, PHP).<br>
+      <b>-t misconfiguration/debug-detect.yaml</b> يبحث عن مؤشرات وضع التصحيح المفعّل (debug mode) التي تُظهر stack traces أو متغيرات بيئة.<br>
+      <b>-o nuclei-errors.txt</b> يحفظ النتائج في ملف منظم يحتوي وصف الخطأ، الرابط، والسيفريتيز المقترحة.<br>
+      <span class="highlight">الفائدة:</span> ثوانٍ فقط لتغطية مئات الأهداف بأكثر من 50 توقيعاً جاهزاً، تعطيك تقريراً جاهزاً برسائل الخطأ المسربة وأوضاع التصحيح النشطة دون الحاجة لكتابة الحمولات يدوياً.
     </div>
   </div>
 </main>
-
 
 <script>
   const menuToggle = document.getElementById('menuToggle');
